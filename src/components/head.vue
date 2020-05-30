@@ -1,33 +1,42 @@
 <template>
-    <div class="hello">
-        <van-button type="primary" size="mini" @click="cn">中文</van-button>
-        <van-button type="info" size="mini" @click="en">English</van-button>
-        <h3>{{$t('app.hello')}}</h3>
+    <div class="index-head">
+        <div class="logo">
+            <img :src="require('@/assets/logo.png')" alt="">
+        </div>
+        <span>客服热线：100096</span>
+        <van-icon name="wap-nav" size="2rem"/>
     </div>
 </template>
 
 <script>
+    import logo from '@/assets/logo.png'
+
     export default {
-        name: '',
-        props: {},
-        created () {
-        },
+        name: 'head',
         data () {
-            return {}
-        },
-        mounted () {
-            // this.init()
-        },
-        methods: {
-            cn () {
-                this.$i18n.locale = 'zh'
-            },
-            en () {
-                this.$i18n.locale = 'en'
+            return {
+                logo: logo
             }
-        },
-        components: {}
+        }
     }
 </script>
+
 <style scoped lang="scss">
+    .index-head {
+        padding:0 3vw;
+        height: 6vh;
+        background: #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .logo {
+            width: 25vw;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            img {
+                width: 100%;
+            }
+        }
+    }
 </style>
