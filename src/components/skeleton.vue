@@ -4,7 +4,7 @@
 </template>
 <script>
     export default {
-        props:['skeleton'],
+        props: ['skeleton'],
         data() {
             return {}
         }

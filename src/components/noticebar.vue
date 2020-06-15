@@ -4,11 +4,9 @@
 </template>
 <script>
     export default {
-        props:['noticeBar'],
-        data(){
-            return {
-
-            }
+        props: ['noticeBar'],
+        data() {
+            return {}
         }
     }
 </script>

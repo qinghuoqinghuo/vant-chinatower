@@ -67,7 +67,7 @@ module.exports = {
         /* 注释需以空格开头 */
         'spaced-comment': 0,
         /* 禁止console */
-        'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off', // 禁止使用debugger,
+        'no-console': 0, // 禁止使用debugger,
         /* 禁止三元运算符 */
         'no-ternary': 0,
         /* return 后面是否允许省略:暂略 ??? */
@@ -83,7 +83,8 @@ module.exports = {
         'key-spacing': 0,
         'space-infix-ops': 0,
         'no-multi-spaces': 0,
+        'no-tabs': 0,
         'no-multiple-empty-lines': 0,
-        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off', // 禁止使用debugger
+        'no-debugger': 0, // 禁止使用debugger
     }
 }
