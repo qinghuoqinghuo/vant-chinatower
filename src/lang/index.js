@@ -8,7 +8,7 @@ import zhCN from 'vant/lib/locale/lang/zh-CN'
 import enLocale from './en-US'
 import zhLocale from './zh-CN'
 
-Vue.use(VueI18n)
+Vue.use(VueI18n);
 
 const messages = {
     en: {

@@ -4,7 +4,7 @@
             <img :src="require('@/assets/logo.png')" alt="">
         </div>
         <span>客服热线：100096</span>
-        <van-icon name="wap-nav" size="2rem"/>
+        <van-icon name="wap-nav" size="2rem" @click="showPopup"/>
     </div>
 </template>
 
@@ -12,10 +12,19 @@
     import logo from '@/assets/logo.png'
 
     export default {
-        name: 'head',
+        name: 'head-wjz',
         data () {
             return {
                 logo: logo
+            }
+        },
+        methods:{
+            showPopup(){
+                let params = {
+                    action: 'showLocale',
+                    data: true
+                };
+                this.$emit('data',params)
             }
         }
     }

@@ -30,9 +30,21 @@ export function getVideoDetail(data){
         data
     })
 }
+/**
+ * 首页内容
+ * */
 export function getIndexData(){
     return request({
         url:'http://101.200.201.27:11115/service/api/web/index',
+        method:'get'
+    })
+}
+/**
+ * 详情内容
+ * */
+export function getIndexDetailsData(id){
+    return request({
+        url:'http://101.200.201.27:11115/service/api/web/getContentDetailById?contentId='+id,
         method:'get'
     })
 }

@@ -1,9 +1,10 @@
 <template>
-    <div>
-        <Head></Head>
+    <div id="home" :class="{'blackTheme':blackTheme}">
+        <Head @data="getData"></Head>
         <Tab :activeTabTop="activeTabTop"></Tab>
         <Search :search="search" :searchDefault="searchDefault" @data="searchWord"></Search>
         <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+            <h3>{{$t('app.hello')}}</h3>
             <Carousel :imgData="imgData" v-if="!loading"></Carousel>
             <Noticebar :noticeBar="noticeBar" v-if="!loading"></Noticebar>
             <Skeleton :skeleton="skeleton" v-if="loading"></Skeleton>
@@ -12,8 +13,8 @@
             <Skeleton :skeleton="skeleton" v-if="loading"></Skeleton>
             <Skeleton :skeleton="skeleton" v-if="loading"></Skeleton>
             <Cell v-if="!loading" :title="title" :to="to" :icon="icon"></Cell>
-            <div v-for="k in listData" :key="k" class="listData">
-                <div v-for="item in k.contentItems" :key="item">
+            <div v-for="(k,index) in listData" :key="index" class="listData">
+                <div v-for="(item,index2) in k.contentItems" :key="index2" @click="showDetails(item)">
                     <!-- 最多显示两行 -->
                     <div class="van-multi-ellipsis--l2 newlist-top">
                         {{item.contentTitle }}
@@ -30,6 +31,10 @@
         <!--<Pagination :page="page"></Pagination>-->
         <!--<div style="height:80px;"></div>-->
         <!--<Tabbar :activeTabBottom="activeTabBottom" :indexInfo="indexInfo"></Tabbar>-->
+        <van-popup v-model="showLocale" position="bottom">
+            <van-cell v-for="(item,index) in localeSelect" :title="item.title" is-link :key="index"
+                      @click="changeLocale(item)"/>
+        </van-popup>
     </div>
 </template>
 <script>
@@ -61,7 +66,7 @@
         data() {
             return {
                 title: '新闻中心',
-                to: 'live',
+                to: '',
                 icon: 'new-o',
                 title2: '热门综艺',
                 to2: 'live',
@@ -99,6 +104,21 @@
                     src: ''
                 }],
                 skeleton: 5,
+                showLocale: false,
+                localeSelect: [{
+                    title: '中文-简体',
+                    field: 'zh'
+                }, {
+                    title: 'English',
+                    field: 'en'
+                }, {
+                    title: '夜间模式',
+                    field: 'black'
+                }, {
+                    title: '日间模式',
+                    field: 'white'
+                }],
+                blackTheme: false,
             }
         },
         components: {
@@ -118,8 +138,47 @@
             this.renderVideoList();
         },
         methods: {
+            /**
+             * 获取子组件返回的数据
+             * */
+            getData(data) {
+                let self = this;
+                switch (data.action) {
+                    case 'showLocale':
+                        self.showLocale = data.data
+                }
+            },
+            /**
+             * 切换语法
+             * */
+            changeLocale(item) {
+                let self = this;
+                this.$store.locale = item.field;
+                this.$i18n.locale = item.field;
+                switch (item.field) {
+                    case 'zh':
+                        self.renderData();
+                        break;
+                    case 'en':
+                        self.renderData();
+                        break;
+                    case 'black':
+                        self.blackTheme = true;
+                        break;
+                    case 'white':
+                        self.blackTheme = false;
+                        break;
+                }
+                this.showLocale = false
+            },
+            /**
+             * 跳转详情
+             * */
+            showDetails(item){
+                this.$router.push({name:'details',params:{id:item.id}})
+            },
             renderData() {
-                let self = this
+                let self = this;
                 getIndexData().then(data => {
                     // 顶部轮播图数据
                     self.imgData = data.data.banners.map(function (item) {
@@ -187,23 +246,28 @@
     }
 </script>
 <style scoped lang="scss">
-    .listData {
-        padding: 3vw 3vw 0 3vw;
-        .newlist-top {
-            font-size: 1.2rem;
-            text-align: left;
-            line-height: 1.8rem;
+    #home {
+        &.blackTheme {
+            box-shadow: 0 0 100vh #000 inset;
+        }
+        .listData {
+            padding: 3vw 3vw 0 3vw;
+            .newlist-top {
+                font-size: 1.2rem;
+                text-align: left;
+                line-height: 1.8rem;
+            }
+
+            .newlist-bottom {
+                width: 50vw;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                line-height: 1.2rem;
+                font-size: 0.8rem;
+                color: #ccc;
+            }
         }
 
-        .newlist-bottom {
-            width: 50vw;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            line-height: 1.2rem;
-            font-size: 0.8rem;
-            color: #ccc;
-        }
     }
-
 </style>
