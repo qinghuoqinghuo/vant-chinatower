@@ -1,0 +1,31 @@
+@import "@/assets/scss/theme.scss";
+//背景色
+@mixin bg_color($color) { /*通过该函数设置主题颜色，后期方便统一管理；*/
+  background-color: $color;
+  [data-theme="theme1"] & {
+    background-color: $background-color-theme1;
+  }
+}
+
+//字体颜色
+@mixin font_color($color) {
+  color: $color;
+  [data-theme="theme1"] & {
+    color: $font-color-theme1;
+  }
+}
+
+//搜索框背景色
+@mixin search_content_bg_color($color) {
+  background-color: $color;
+  [data-theme="theme1"] & {
+    background-color: $search_content_bg_color1;
+  }
+}
+
+@mixin icon_color($color) {
+  color: $color;
+  [data-theme="theme1"] & {
+    color: $icon_color_theme1;
+  }
+}

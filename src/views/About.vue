@@ -4,7 +4,7 @@
         <Tab :activeTabTop="activeTabTop"></Tab>
         <Search :search="search" :searchDefault="searchDefault" @data="searchWord"></Search>
         <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-            <h3>{{$t('app.hello')}}</h3>
+            <!--<h3>{{$t('app.hello')}}</h3>-->
             <Carousel :imgData="imgData" v-if="!loading"></Carousel>
             <Noticebar :noticeBar="noticeBar" v-if="!loading"></Noticebar>
             <Skeleton :skeleton="skeleton" v-if="loading"></Skeleton>
@@ -21,7 +21,7 @@
                     </div>
                     <div class="newlist-bottom"><span>{{item.contentAuthor}}</span><span>{{item.publishTime}}</span>
                     </div>
-                    <van-divider/>
+                    <!--<van-divider/>-->
                 </div>
             </div>
             <!--<Grid v-if="!loading" :gridData="gridData" :columnNum="2" :gutter="4"></Grid>-->
@@ -163,10 +163,12 @@
                         self.renderData();
                         break;
                     case 'black':
-                        self.blackTheme = true;
+                        // self.blackTheme = true;
+                        window.document.documentElement.setAttribute('data-theme', 'theme1');
                         break;
                     case 'white':
-                        self.blackTheme = false;
+                        // self.blackTheme = false;
+                        window.document.documentElement.setAttribute('data-theme', 'theme');
                         break;
                 }
                 this.showLocale = false
@@ -174,8 +176,8 @@
             /**
              * 跳转详情
              * */
-            showDetails(item){
-                this.$router.push({name:'details',params:{id:item.id}})
+            showDetails(item) {
+                this.$router.push({name: 'details', params: {id: item.id}})
             },
             renderData() {
                 let self = this;
@@ -246,16 +248,21 @@
     }
 </script>
 <style scoped lang="scss">
+    @import "@/assets/scss/mixin.scss";
+
     #home {
         &.blackTheme {
             box-shadow: 0 0 100vh #000 inset;
         }
         .listData {
-            padding: 3vw 3vw 0 3vw;
+            padding: 0 3vw;
+            @include bg_color($background-color-theme);
+            @include font_color($font-color-theme);
             .newlist-top {
                 font-size: 1.2rem;
                 text-align: left;
                 line-height: 1.8rem;
+                margin:4vw 0 1vw 0;
             }
 
             .newlist-bottom {
@@ -266,6 +273,7 @@
                 line-height: 1.2rem;
                 font-size: 0.8rem;
                 color: #ccc;
+                margin-bottom:2vw;
             }
         }
 

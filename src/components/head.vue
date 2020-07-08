@@ -13,26 +13,28 @@
 
     export default {
         name: 'head-wjz',
-        data () {
+        data() {
             return {
                 logo: logo
             }
         },
-        methods:{
-            showPopup(){
+        methods: {
+            showPopup() {
                 let params = {
                     action: 'showLocale',
                     data: true
                 };
-                this.$emit('data',params)
+                this.$emit('data', params)
             }
         }
     }
 </script>
 
 <style scoped lang="scss">
+    @import "@/assets/scss/mixin.scss";
+
     .index-head {
-        padding:0 3vw;
+        padding: 0 3vw;
         height: 6vh;
         background: #ccc;
         display: flex;
@@ -46,6 +48,12 @@
             img {
                 width: 100%;
             }
+        }
+    }
+
+    .index-head {
+        .van-icon, span {
+            @include icon_color($icon-color-theme);
         }
     }
 </style>
